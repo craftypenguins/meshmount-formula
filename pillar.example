@@ -1,0 +1,27 @@
+#!yamlex
+states: !aggregate
+  meshmount: !aggregate
+    - meshmount
+
+meshmount: !aggregate
+  type: nfs #fuse, nfs, cifs
+#  fuse_type: sshfs # Uncomment if type=fuse
+  user: root
+  path: /srv/data
+  opts:
+## Options for NFS
+     - soft
+     - intr
+     - tcp
+## Options for SSHFS
+#    - defaults
+#    - allow_other
+#    - reconnect
+#    - sshfs_sync
+#    - compression=yes
+#    - IdentityFile=/root/.ssh/id_rsa
+
+  nodes:
+    - wkstn-1
+    - wkstn-2
+    - wkstn-3
