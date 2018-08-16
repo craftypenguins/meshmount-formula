@@ -9,9 +9,7 @@ meshmount_packages:
       - {{ meshmount.pkg_sshfs }}
     - refresh: True
 {% endif %}
-{% endif %}
-
-{% if salt['pillar.get']('meshmount:type', 'fuse') == 'nfs' %}
+{% elif salt['pillar.get']('meshmount:type', 'fuse') == 'nfs' %}
 meshmount_packages:
   pkg.installed:
     - name: {{ meshmount.pkg_nfs }}
