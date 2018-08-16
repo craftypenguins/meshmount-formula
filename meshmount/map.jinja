@@ -1,10 +1,10 @@
-{% set sshfs_mesh = salt['grains.filter_by'](
+{% set meshmount = salt['grains.filter_by'](
 {
   'Debian': {
         'pkg_sshfs':'sshfs',
         'pkg_nfs':'nfs-kernel-server',
      },
-},merge=salt['pillar.get']('sshfs-mesh:lookup'))
+},merge=salt['pillar.get']('meshmount:lookup'))
 
 %}
 
