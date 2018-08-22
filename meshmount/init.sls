@@ -19,7 +19,7 @@ meshmount_packages:
 {% endif %}
 
 {% for node in salt['pillar.get']('meshmount:nodes', []) %}
-{% if node != grains['id'] %}
+{% if node != grains['host']|lower %}
 {{salt['pillar.get']('meshmount:path', '/srv/data')}}/{{node}}:
   mount.mounted:
 {% if salt['pillar.get']('meshmount:type', 'fuse') == 'fuse' %}
