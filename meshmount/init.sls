@@ -42,5 +42,24 @@ meshmount_packages:
       - {{opt}}
 {%- endfor %}
 {% endif %}
+{% else %}
+#Make the directory for host to export (not for the mount)
+{{salt['pillar.get']('meshmount:path', '/srv/data')}}/{{node}}:
+  file.directory:
+    - makedirs: True
 {% endif %}
 {% endfor %}
+
+# Create the /etc/exports to allow the others in
+# nfs_export.present not available until Salt 2018.3
+mesh_nfs_exports:
+  file.managed:
+    - name: /etc/exports
+    - source: salt://meshmount/templates/exports.jinja
+    - template: jinja
+
+update_nfs:
+  cmd.run:
+    - name: '/usr/sbin/exportfs -ra'
+    - onchanges:
+      - file: mesh_nfs_exports
