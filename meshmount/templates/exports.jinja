@@ -1,4 +1,4 @@
 # /etc/exports: the access control list for filesystems which may be exported
 #		to NFS clients.  See exports(5).
 #
-{{salt['pillar.get']('meshmount:path', '/srv/data')}} {% for node in salt['pillar.get']('meshmount:nodes', []) -%} {%- if node != grains['host']|lower -%} {{ node }}(rw,sync,no_root_squash,no_subtree_check,crossmnt) {% endif -%}{% endfor -%}
+{{salt['pillar.get']('meshmount:path', '/srv/data')}}/{{ grains['host']|lower}} {% for node in salt['pillar.get']('meshmount:nodes', []) -%} {%- if node != grains['host']|lower -%} {{ node }}(rw,sync,no_root_squash,no_subtree_check,crossmnt) {% endif -%}{% endfor -%}
